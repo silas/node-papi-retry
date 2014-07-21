@@ -1,0 +1,32 @@
+{
+  "name": "rapi-retry",
+  "version": "0.1.0",
+  "description": "Add retry support to Rapi clients",
+  "main": "lib",
+  "devDependencies": {
+    "istanbul": "^0.3.0",
+    "jscs": "^1.5.8",
+    "jshint": "^2.5.2",
+    "mocha": "^1.20.1",
+    "nock": "^0.42.1",
+    "rapi": "^0.7.0",
+    "should": "^4.0.4"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jshint lib test && ./node_modules/.bin/jscs lib test && ./node_modules/.bin/mocha --recursive --require should"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silas/node-rapi-retry.git"
+  },
+  "keywords": [
+    "retry",
+    "rapi"
+  ],
+  "author": "Silas Sewell <silas@sewell.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silas/node-rapi-retry/issues"
+  },
+  "homepage": "https://github.com/silas/node-rapi-retry"
+}
