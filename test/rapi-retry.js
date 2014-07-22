@@ -89,9 +89,7 @@ describe('rapi-retry', function() {
 
       this.client = rapi.Client(this.baseUrl);
 
-      this.client._plugin(retry, {
-        options: { minDelay: 50 },
-      });
+      this.client._plugin(retry, { options: { minDelay: 0 } });
 
       this.nock = nock(this.baseUrl);
     });
@@ -123,7 +121,13 @@ describe('rapi-retry', function() {
         .get('/get')
         .reply(200, { hello: 'world' });
 
-      var start = new Date();
+      var count = 0;
+
+      this.client.on('log', function(tags) {
+        if (~tags.indexOf('response') && tags.length === 2) {
+          count += 1;
+        }
+      });
 
       this.client._get('/get', function(err, res) {
         should.not.exist(err);
@@ -132,7 +136,7 @@ describe('rapi-retry', function() {
         res.statusCode.should.eql(200);
         res.body.should.eql({ hello: 'world' });
 
-        (new Date() - start).should.be.within(140, 160);
+        count.should.eql(4);
 
         done();
       });
