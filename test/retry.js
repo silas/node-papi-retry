@@ -5,7 +5,7 @@
  */
 
 var nock = require('nock');
-var rapi = require('rapi');
+var papi = require('papi');
 var should = require('should');
 
 var retry = require('../lib');
@@ -14,7 +14,7 @@ var retry = require('../lib');
  * Tests
  */
 
-describe('rapi-retry', function() {
+describe('papi-retry', function() {
   describe('strategy', function() {
     describe('Exponential', function() {
       it('should work', function() {
@@ -87,7 +87,7 @@ describe('rapi-retry', function() {
     beforeEach(function() {
       this.baseUrl = 'http://example.org';
 
-      this.client = rapi.Client(this.baseUrl);
+      this.client = papi.Client(this.baseUrl);
 
       this.client._plugin(retry, { options: { minDelay: 0 } });
 

@@ -1,6 +1,6 @@
-# Rapi Retry [![Build Status](https://travis-ci.org/silas/node-rapi-retry.png?branch=master)](https://travis-ci.org/silas/node-rapi-retry)
+# Papi Retry [![Build Status](https://travis-ci.org/silas/node-papi-retry.png?branch=master)](https://travis-ci.org/silas/node-papi-retry)
 
-Add retry support to [Rapi][rapi] clients.
+Add retry support to [Papi][papi] clients.
 
  * [Example](#example)
  * [License](#license)
@@ -8,15 +8,15 @@ Add retry support to [Rapi][rapi] clients.
 ## Example
 
 ``` javascript
-var rapi = require('rapi');
+var papi = require('papi');
 
-var client = new rapi.Client('https://api.github.com');
+var client = new papi.Client('https://api.github.com');
 
-client._plugin(require('rapi-retry'));
+client._plugin(require('papi-retry'));
 ```
 
 ## License
 
 This work is licensed under the MIT License (see the LICENSE file).
 
-[rapi]: https://github.com/silas/node-rapi
+[papi]: https://github.com/silas/node-papi
