@@ -13,7 +13,8 @@
     "should": "^4.6.5"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jshint lib test && ./node_modules/.bin/jscs lib test && ./node_modules/.bin/mocha --recursive --require should"
+    "cover": "istanbul cover _mocha -- --recursive && open coverage/lcov-report/index.html",
+    "test": "jshint lib test && jscs lib test && istanbul cover _mocha -- --recursive --check-leaks && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100"
   },
   "repository": {
     "type": "git",
