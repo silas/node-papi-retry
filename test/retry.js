@@ -87,7 +87,10 @@ describe('papi-retry', function() {
     beforeEach(function() {
       this.baseUrl = 'http://example.org';
 
-      this.client = papi.Client(this.baseUrl);
+      this.client = papi.Client({
+        baseUrl: this.baseUrl,
+        timeout: 10,
+      });
 
       this.client._plugin(retry, { options: { minDelay: 0 } });
 
@@ -103,7 +106,7 @@ describe('papi-retry', function() {
         should.not.exist(err);
         should.exist(res);
 
-        res.statusCode.should.eql(200);
+        res.statusCode.should.equal(200);
         res.body.should.eql({ hello: 'world' });
 
         done();
@@ -115,28 +118,29 @@ describe('papi-retry', function() {
         .get('/get')
         .reply(500, 'error')
         .get('/get')
-        .reply(500, 'error')
+        .reply(408, 'request timeout')
         .get('/get')
-        .reply(500, 'error')
+        .delayConnection(20)
+        .reply(201, 'delay')
         .get('/get')
         .reply(200, { hello: 'world' });
 
       var count = 0;
 
-      this.client.on('log', function(tags) {
-        if (~tags.indexOf('response') && tags.length === 2) {
-          count += 1;
-        }
+      this.client._ext('onRequest', function(ctx, next) {
+        count += 1;
+
+        return next();
       });
 
       this.client._get('/get', function(err, res) {
         should.not.exist(err);
         should.exist(res);
 
-        res.statusCode.should.eql(200);
+        res.statusCode.should.equal(200);
         res.body.should.eql({ hello: 'world' });
 
-        count.should.eql(4);
+        count.should.equal(4);
 
         done();
       });
