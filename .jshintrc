@@ -8,7 +8,7 @@
     "after": false,
     "afterEach": false
   },
-  "camelcase": false,
+  "camelcase": true,
   "eqeqeq": true,
   "eqnull": true,
   "indent": 2,
