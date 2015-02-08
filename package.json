@@ -4,13 +4,13 @@
   "description": "Add retry support to Papi clients",
   "main": "lib",
   "devDependencies": {
-    "istanbul": "^0.3.0",
-    "jscs": "^1.5.8",
-    "jshint": "^2.5.2",
-    "mocha": "^1.20.1",
-    "nock": "^0.42.1",
-    "papi": "^0.13.0",
-    "should": "^4.0.4"
+    "istanbul": "^0.3.5",
+    "jscs": "^1.11.0",
+    "jshint": "^2.6.0",
+    "mocha": "^2.1.0",
+    "nock": "^0.59.1",
+    "papi": "^0.16.1",
+    "should": "^4.6.5"
   },
   "scripts": {
     "test": "./node_modules/.bin/jshint lib test && ./node_modules/.bin/jscs lib test && ./node_modules/.bin/mocha --recursive --require should"
