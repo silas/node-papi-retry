@@ -1,6 +1,8 @@
 {
   "node": true,
+  "esversion": 9,
   "globals": {
+    // Mocha
     "describe": false,
     "it": false,
     "before": false,
@@ -14,11 +16,12 @@
   "indent": 2,
   "latedef": true,
   "newcap": true,
-  "quotmark": "single",
+  "quotmark": "double",
   "trailing": true,
   "undef": true,
   "unused": true,
-  "maxlen": 120,
-  "strict": true,
-  "expr": true
+  "maxlen": 100,
+  "expr": true,
+  "laxbreak": true,
+  "laxcomma": true
 }

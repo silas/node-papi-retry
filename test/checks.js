@@ -1,43 +1,45 @@
-'use strict';
+"use strict";
 
-/**
- * Module dependencies.
- */
+const should = require("should");
 
-require('should');
+const retry = require("../lib");
 
-var retry = require('../lib');
+describe("checks", function () {
+  describe("simple", function () {
+    it("should work", function () {
+      const c = retry.checks.simple({});
 
-/**
- * Tests
- */
+      should(c({ err: { code: "ETIMEDOUT" } })).be.true();
+      should(c({ err: { code: "ECONNREFUSED" } })).be.true();
+      should(c({ err: { code: "EHOSTUNREACH" } })).be.true();
+      should(c({ err: { code: "ECONNRESET" } })).be.false();
 
-describe('checks', function() {
-  describe('simple', function() {
-    it('should work', function() {
-      var c = retry.checks.simple({});
+      should(c({ err: {}, req: { method: "POST" } })).be.false();
+      should(c({ err: {}, req: { method: "PUT" } })).be.false();
+      should(c({ err: {}, req: { method: "DELETE" } })).be.false();
+      should(c({ err: {}, req: { method: "PATCH" } })).be.false();
 
-      c({ err: { code: 'ETIMEDOUT' } }).should.be.true;
-      c({ err: { code: 'ECONNREFUSED' } }).should.be.true;
-      c({ err: { code: 'EHOSTUNREACH' } }).should.be.true;
-      c({ err: { code: 'ECONNRESET' } }).should.be.false;
+      should(c({ err: { isAbort: true }, req: { method: "GET" } })).be.false();
+      should(c({ err: { isTimeout: true }, req: { method: "GET" } })).be.true();
 
-      c({ err: {}, req: { method: 'POST' } }).should.be.false;
-      c({ err: {}, req: { method: 'PUT' } }).should.be.false;
-      c({ err: {}, req: { method: 'DELETE' } }).should.be.false;
-      c({ err: {}, req: { method: 'PATCH' } }).should.be.false;
+      should(c({ err: {}, req: { method: "GET" } })).be.false();
 
-      c({ err: { isAbort: true }, req: { method: 'GET' } }).should.be.false;
-      c({ err: { isTimeout: true }, req: { method: 'GET' } }).should.be.true;
+      should(
+        c({ err: {}, req: { method: "GET" }, res: { statusCode: 408 } })
+      ).be.true();
+      should(
+        c({ err: {}, req: { method: "GET" }, res: { statusCode: 502 } })
+      ).be.true();
+      should(
+        c({ err: {}, req: { method: "GET" }, res: { statusCode: 503 } })
+      ).be.true();
+      should(
+        c({ err: {}, req: { method: "GET" }, res: { statusCode: 504 } })
+      ).be.true();
 
-      c({ err: {}, req: { method: 'GET' } }).should.be.false;
-
-      c({ err: {}, req: { method: 'GET' }, res: { statusCode: 408 } }).should.be.true;
-      c({ err: {}, req: { method: 'GET' }, res: { statusCode: 502 } }).should.be.true;
-      c({ err: {}, req: { method: 'GET' }, res: { statusCode: 503 } }).should.be.true;
-      c({ err: {}, req: { method: 'GET' }, res: { statusCode: 504 } }).should.be.true;
-
-      c({ err: {}, req: { method: 'GET' }, res: { statusCode: 200 } }).should.be.false;
+      should(
+        c({ err: {}, req: { method: "GET" }, res: { statusCode: 200 } })
+      ).be.false();
     });
   });
 });
