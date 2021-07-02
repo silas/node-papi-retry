@@ -1,16 +1,13 @@
-# Papi Retry [![Build Status](https://travis-ci.org/silas/node-papi-retry.png?branch=master)](https://travis-ci.org/silas/node-papi-retry)
+# Papi Retry
 
 Add retry support to [Papi][papi] clients.
-
- * [Example](#example)
- * [License](#license)
 
 ## Example
 
 ``` javascript
-var papi = require('papi');
+const papi = require('papi');
 
-var client = new papi.Client('https://api.github.com');
+const client = new papi.Client('https://api.github.com');
 
 client._plugin(require('papi-retry'));
 ```

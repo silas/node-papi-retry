@@ -1,20 +1,18 @@
 {
   "name": "papi-retry",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Add retry support to Papi clients",
   "main": "lib",
   "devDependencies": {
-    "istanbul": "^0.3.6",
-    "jscs": "^1.11.3",
     "jshint": "^2.6.0",
-    "mocha": "^2.1.0",
-    "nock": "^0.59.1",
-    "papi": "^0.18.0",
-    "should": "^5.0.1"
+    "mocha": "^9.0.1",
+    "nock": "^13.0.7",
+    "papi": "^1.0.0",
+    "nyc": "^15.1.0",
+    "should": "^13.2.3"
   },
   "scripts": {
-    "cover": "istanbul cover _mocha -- --recursive && open coverage/lcov-report/index.html",
-    "test": "jshint lib test && jscs lib test && istanbul cover _mocha -- --recursive --check-leaks && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100"
+    "test": "jshint lib test && nyc mocha -- --recursive --check-leaks && nyc check-coverage --statements 100 --functions 100 --branches 100 --lines 100"
   },
   "repository": {
     "type": "git",
